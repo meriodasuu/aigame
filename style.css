@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: #0f0f12;
+  color: #dcdcdc;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.icon {
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* КЛЮЧЕВО */
+  justify-content: flex-start;
+  cursor: pointer;
+  opacity: 0.85;
+  text-align: center;    /* КЛЮЧЕВО */
+}
+
+.icon:hover {
+  opacity: 1;
+}
+
+
+
+.icon span {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--text-muted);
+  text-align: center;
+  width: 100%;           /* КЛЮЧЕВО */
+  pointer-events: none;
+}
+
+
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: #151518;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+#windows {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.window {
+  position: absolute;
+  width: 460px;
+  height: 300px;
+
+  background: rgba(22, 22, 26, 0.97);
+  backdrop-filter: blur(14px);
+
+  border-radius: 14px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+
+  animation: fadeIn 0.12s ease-out;
+}
+
+/* кнопки */
+.window-controls {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.btn {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.btn.close {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  opacity: 0.4;
+}
+
+.window-header:hover .btn.close {
+  opacity: 0.8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+/* интерфейс ОС — нельзя выделять */
+.window-header,
+.window-controls,
+.icon,
+#taskbar {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/* контент приложений — МОЖНО */
+.window-content {
+  flex: 1;
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-main);
+  overflow: auto;
+}
+
+.window-header {
+  height: 36px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  cursor: grab;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0)
+  );
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+:root {
+  --bg-main: #0f0f12;
+  --bg-window: rgba(25, 25, 28, 0.96);
+  --bg-panel: #151518;
+
+  --text-main: #dcdcdc;
+  --text-muted: #9a9a9a;
+
+  --accent-soft: #2a2a2e; /* почти незаметный */
+}
+
+#desktop {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 96px);
+  gap: 32px;
+  align-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  max-width: 600px;
+}
+
+.icon svg {
+  width: 48px;
+  height: 48px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 8px;
+}
+
+.icon:hover svg {
+  stroke: var(--text-main);
+}
+
+.window {
+  transition: box-shadow 0.2s ease;
+}
+
+.window:focus-within {
+  box-shadow: 0 25px 50px rgba(0,0,0,0.65);
+}
+
+.window:focus-within {
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.75),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.window {
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.window:active {
+  transform: scale(0.995);
+}
+
+
+.icon:hover span {
+  color: var(--text-main);
+}
+
+.window {
+  outline: 1px solid transparent;
+}
+
+.window:focus-within {
+  outline: 1px solid rgba(255,255,255,0.04);
+}
